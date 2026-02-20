@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>❤️ Shreya & Parth Movie Night ❤️</title>
+
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#ff4d6d" />
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Georgia", serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  text-align: center;
+  color: #4a0033;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+}
+
+.names {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.movie-title {
+  font-size: 2.2rem;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 40px;
+  display: inline-block;
+  margin: 20px 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.details, #countdown {
+  font-size: 1.3rem;
+  margin: 20px auto;
+  background: rgba(255,255,255,0.7);
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 400px;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  background: #ff4d6d;
+  color: white;
+  text-decoration: none;
+  border-radius: 40px;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background: #c9184a;
+  transform: scale(1.08);
+}
+
+.heart {
+  position: fixed;
+  font-size: 18px;
+  animation: floatUp 4s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-10vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>You're Invited To A Cozy Movie Night ❤️</h1>
+
+  <div class="names">
+    Shreya & Parth
+  </div>
+
+  <div class="movie-title">
+    🎬 The Intern 🎬
+  </div>
+
+  <div class="details">
+    📅 20 February <br>
+    ⏰ 10:30 PM IST <br>
+    🍿 Just Us. Blankets. And a Beautiful Night.
+  </div>
+
+  <div id="countdown"></div>
+
+  <a class="button" id="movieBtn" href="https://example.com" target="_blank">
+    ❤️ Take Us To The Movie ❤️
+  </a>
+</div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+
+// Countdown
+const eventDate = new Date("Feb 20, 2026 22:30:00 GMT+0530").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = eventDate - now;
+
+  if (diff <= 0) {
+    document.getElementById("countdown").innerHTML = "It's Movie Time ❤️";
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `⏳ ${d}d ${h}h ${m}m ${s}s until our date night`;
+}, 1000);
+
+// Confetti hearts
+document.getElementById("movieBtn").addEventListener("click", () => {
+  confetti({
+    particleCount: 150,
+    spread: 100,
+    shapes: ["circle"],
+  });
+});
+
+// Floating hearts background
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 800);
+</script>
+
+</body>
+</html>
